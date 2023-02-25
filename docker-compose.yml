@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ..:/var/www:rw
+      - ./logs:/var/log/nginx
+    links:
+      - php
+  php:
+    build: ./php-fpm
+    volumes:
+      - ./../:/var/www
